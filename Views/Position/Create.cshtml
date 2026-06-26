@@ -1,0 +1,182 @@
+﻿@model BISP_hrmsDashboard.Models.PositionCreateVM
+@{
+    ViewData["Title"] = "Employee Position - Create";
+}
+
+<style>
+    .container {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden
+    }
+
+    .banner-wrap {
+        width: 100%
+    }
+
+        .banner-wrap img.banner-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block
+        }
+
+    .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #c5c8cb;
+        box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        margin: 0;
+        padding: 0
+    }
+
+        .sticky-navbar .navbar-nav {
+            margin: 0 auto;
+            gap: 12px
+        }
+
+        .sticky-navbar .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: .75rem 1rem
+        }
+
+            .sticky-navbar .nav-link.active, .sticky-navbar .nav-link:hover {
+                border-bottom: 2px solid #0d6efd;
+            }
+
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px
+    }
+
+    .form-hint {
+        font-size: .85rem;
+        color: #6c757d
+    }
+</style>
+
+<!-- Banner -->
+<div class="banner-wrap">
+    <img src="~/images/banner.jpeg" alt="HRMS Banner" class="banner-img" />
+</div>
+
+<!-- Sticky navbar -->
+<nav class="navbar sticky-navbar justify-content-center">
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee_dataEntryForm" asp-action="Employee_DEF">EMPLOYEE DATA FORM</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee" asp-action="Search">EMPLOYEE SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link active" asp-controller="Position" asp-action="Create">POSITION</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Search">POSITION SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Unassign">POSITION UNASSIGN</a></li>
+        <li><a class="nav-link" asp-controller="Dashboard" asp-action="Index">HRMS Dashboard</a></li>
+    </ul>
+</nav>
+
+<div class="page-container">
+    <h3>Create Employee Position</h3>
+
+    @if (TempData["msg"] is string m && !string.IsNullOrWhiteSpace(m))
+    {
+        <div class="alert alert-success">@m</div>
+    }
+
+    @* <p class="text-muted mb-3">
+        IDATE &amp; LAST_UPDATE_DATE fields DB automatically handle karega (defaults/trigger). Form mein nahin dikhai jaayengi.
+    </p> *@
+
+    <form asp-controller="Position" asp-action="Create" method="post" class="row g-3" id="positionForm">
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-6">
+            <label asp-for="POST_TITLE" class="form-label">Post Title</label>
+            <input asp-for="POST_TITLE" class="form-control" maxlength="100" placeholder="e.g. Assistant Director" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="POST_SCALE" class="form-label">Post Scale</label>
+            <input asp-for="POST_SCALE" class="form-control" maxlength="100" placeholder="e.g. SPS-8" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="POST_REGION" class="form-label">Region</label>
+            <input asp-for="POST_REGION" class="form-control" maxlength="100" placeholder="e.g. Punjab / South" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="POST_OCCUPANCY" class="form-label">Occupancy</label>
+            <input asp-for="POST_OCCUPANCY" class="form-control" maxlength="100" placeholder="e.g. Filled / Vacant" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="POST_STATUS" class="form-label">Status</label>
+            <input asp-for="POST_STATUS" class="form-control" maxlength="100" placeholder="e.g. Active / Inactive" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="LOCATION_DEPARTMENT" class="form-label">Location / Department</label>
+            <input asp-for="LOCATION_DEPARTMENT" class="form-control" maxlength="100" placeholder="e.g. HQ / Operations" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="DISTRICT_SUB_DEPARTMENT" class="form-label">District / Sub-Department</label>
+            <input asp-for="DISTRICT_SUB_DEPARTMENT" class="form-control" maxlength="100" placeholder="e.g. Lahore / HR" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="TEHSIL_SECTION" class="form-label">Tehsil / Section</label>
+            <input asp-for="TEHSIL_SECTION" class="form-control" maxlength="100" placeholder="e.g. Model Town / Payroll" />
+            <div class="form-hint">Max 100 chars</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="REPORTING_TO_POST_ID" class="form-label">Reporting To (Post ID)</label>
+            <input asp-for="REPORTING_TO_POST_ID" class="form-control" inputmode="numeric" placeholder="e.g. 12" />
+            <div class="form-hint">Optional: parent POST_ID</div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="EMPLOYEE_ID" class="form-label">Employee ID</label>
+            <input asp-for="EMPLOYEE_ID" class="form-control" inputmode="numeric" placeholder="Link to tbl_Employee.EMPLOYEE_ID" />
+            <div class="form-hint">Optional: link this position to an employee</div>
+        </div>
+
+        <div class="col-12 mt-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-controller="Position" asp-action="Search" class="btn btn-outline-secondary">Back to Search</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // Light trim on submit (sab columns nullable bhi hain)
+        document.getElementById('positionForm').addEventListener('submit', function(){
+          ['POST_TITLE','POST_SCALE','POST_REGION','POST_OCCUPANCY','POST_STATUS',
+           'LOCATION_DEPARTMENT','DISTRICT_SUB_DEPARTMENT','TEHSIL_SECTION'
+          ].forEach(name=>{
+            const el = document.querySelector([name="${name}"]);
+            if (el && typeof el.value === 'string') el.value = el.value.trim();
+          });
+        });
+    </script>
+}

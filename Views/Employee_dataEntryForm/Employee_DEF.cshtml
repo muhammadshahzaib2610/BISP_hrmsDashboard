@@ -1,0 +1,878 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Home";
+    ViewBag.HideNav = true;   // hide shared layout nav
+}
+<style>
+    /* remove side gaps from layout container on this page only */
+    .container {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Banner full-bleed */
+    .banner-wrap {
+        width: 100%;
+    }
+
+        .banner-wrap img.banner-img {
+            width: 100%;
+            height: 220px; /* smaller height */
+            object-fit: cover; /* no stretch, crop nicely */
+            display: block;
+        }
+
+    /* Full-width sticky navbar right under banner */
+    .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #c5c8cb;
+        box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        margin: 0;
+        padding: 0;
+    }
+
+        .sticky-navbar .navbar-nav {
+            margin: 0 auto;
+            gap: 12px;
+        }
+
+        .sticky-navbar .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: .75rem 1rem;
+        }
+
+            .sticky-navbar .nav-link.active,
+            .sticky-navbar .nav-link:hover {
+                /* text-decoration: underline; */
+                border-bottom: 2px solid #0d6efd;
+            }
+
+    /* Content width (can keep centered) */
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px;
+    }
+</style>
+
+<!-- Banner (full width) -->
+<div class="banner-wrap">
+    <img src="~/images/banner.jpeg" alt="HRMS Banner" class="banner-img" />
+</div>
+
+<!-- Sticky navbar (full width, centered items) -->
+<nav class="navbar sticky-navbar justify-content-center">
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+                                  && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")"
+               asp-controller="Home" asp-action="Index"
+               asp-route-refresh="@DateTime.Now.Ticks">
+                HOME
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Employee_dataEntryForm"
+               asp-action="Employee_DEF">EMPLOYEE DATA FORM</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee" asp-action="Search">EMPLOYEE SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Create">POSITION</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Search">POSITION SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Unassign">POSITION UNASSIGN</a></li>
+        <li><a class="nav-link" asp-controller="Dashboard" asp-action="Index">HRMS Dashboard</a></li>
+    </ul>
+</nav>
+
+@{
+    ViewData["Title"] = "Employee Data Form";
+
+    var genders = ViewBag.Genders as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var mstatus = ViewBag.MaritalStatuses as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var religions = ViewBag.Religions as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var provinces = ViewBag.Provinces as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var scales = ViewBag.Scales as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var designations = ViewBag.Designations as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+
+    // NEW: Status + Parent Office
+    var statuses = ViewBag.Statuses as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var parentOffices = ViewBag.ParentOffices as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+
+    // NEW: Education
+    var educations = ViewBag.Educations as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+}
+
+<div class="page-container">
+    <!--<h2>Employee Data Form Pag</h2>-->
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message as string))
+    {
+        <div class="alert @(ViewBag.Message.ToString().StartsWith("✅") ? "alert-success" : "alert-danger")">
+            @ViewBag.Message
+        </div>
+    }
+
+    <form method="post" asp-controller="Employee_dataEntryForm" asp-action="Employee_DEF" id="empForm">
+        <div class="row mb-3">
+
+            <!-- Employee ID -->
+            <!--<div class="col-md-6">
+                <label class="form-label">Employee ID</label>
+                <input type="text" class="form-control" value="@ViewBag.NextEmployeeId" readonly disabled />
+            </div>-->
+
+            <!-- CNIC -->
+            <div class="col-md-6 mt-3">
+                <label for="CNIC" class="form-label">CNIC</label>
+                <input type="text" id="CNIC" name="CNIC" class="form-control"
+                       maxlength="13" inputmode="numeric" autocomplete="off"
+                       placeholder="13 digits only" required />
+                <small id="cnic-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- NAME -->
+            <div class="col-md-6 mt-3">
+                <label for="NAME" class="form-label">Name</label>
+                <input type="text" id="NAME" name="NAME" class="form-control" placeholder="Enter name" />
+                <small id="name-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- FATHER NAME -->
+            <div class="col-md-6 mt-3">
+                <label for="FATHER_NAME" class="form-label">Father Name</label>
+                <input type="text" id="FATHER_NAME" name="FATHER_NAME" class="form-control" placeholder="Enter father name" />
+                <small id="father-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- GENDER -->
+            <div class="col-md-6 mt-3">
+                <label for="GENDER" class="form-label">Gender</label>
+                <select id="GENDER" name="GENDER" class="form-control" required>
+                    <option value="">-- Select Gender --</option>
+                    @foreach (var g in genders)
+                    {
+                        <option value="@g.Value">@g.Text</option>
+                    }
+                </select>
+                <small id="gender-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- DOB -->
+            <div class="col-md-6 mt-3">
+                <label for="DOB" class="form-label">Date of Birth</label>
+                <input type="date" id="DOB" name="DOB" class="form-control" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <small id="dob-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- MARITAL STATUS -->
+            <div class="col-md-6 mt-3">
+                <label for="MARITAL_STATUS" class="form-label">Marital Status</label>
+                <select id="MARITAL_STATUS" name="MARITAL_STATUS" class="form-control" required>
+                    <option value="">-- Select Marital Status --</option>
+                    @foreach (var ms in mstatus)
+                    {
+                        <option value="@ms.Value">@ms.Text</option>
+                    }
+                </select>
+            </div>
+
+            <!-- CHILDREN -->
+            <div class="col-md-6 mt-3">
+                <label for="CHILDREN" class="form-label">Children</label>
+                <input type="number" id="CHILDREN" name="CHILDREN" class="form-control"
+                       inputmode="numeric" min="0" max="5" step="1" placeholder="0" />
+                <small id="children-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- RELIGION -->
+            <div class="col-md-6 mt-3">
+                <label for="RELIGION" class="form-label">Religion</label>
+                <select id="RELIGION" name="RELIGION" class="form-control" required>
+                    <option value="">-- Select Religion --</option>
+                    @foreach (var r in religions)
+                    {
+                        <option value="@r.Value">@r.Text</option>
+                    }
+                </select>
+            </div>
+
+            <!-- RELIGION CAST -->
+            <div class="col-md-6 mt-3">
+                <label for="RELIGION_CAST" class="form-label">Religion Cast</label>
+                <select id="RELIGION_CAST" name="RELIGION_CAST" class="form-control" required>
+                    <option value="">-- Select Religion Cast --</option>
+                </select>
+            </div>
+
+            <!-- SCALE (SPS) -->
+            <div class="col-md-6 mt-3">
+                <label for="SCALE" class="form-label">Scale (SPS)</label>
+                <select id="SCALE" name="SCALE" class="form-control" required>
+                    <option value="">-- Select Scale (SPS) --</option>
+                    @foreach (var s in scales)
+                    {
+                        <option value="@s.Value">@s.Text</option>
+                    }
+                </select>
+                <small id="scale-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- DESIGNATION -->
+            <div class="col-md-6 mt-3">
+                <label for="DESIGNATION" class="form-label">Designation</label>
+                <select id="DESIGNATION" name="DESIGNATION" class="form-control" required>
+                    <option value="">-- Select Designation --</option>
+                    @foreach (var d in designations)
+                    {
+                        <option value="@d.Value">@d.Text</option>
+                    }
+                </select>
+                <small id="desig-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- EDUCATION (NEW) -->
+            <div class="col-md-6 mt-3">
+                <label for="EDUCATION" class="form-label">Education</label>
+                <select id="EDUCATION" name="EDUCATION" class="form-control" required>
+                    <option value="">-- Select Education --</option>
+                    @foreach (var e in educations)
+                    {
+                        <option value="@e.Value">@e.Text</option>
+                    }
+                </select>
+                <small id="edu-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- ===== STATUS ===== -->
+            <div class="col-md-6 mt-3">
+                <label for="STATUS" class="form-label">Status</label>
+                <select id="STATUS" name="STATUS" class="form-control" required>
+                    <option value="">-- Select Status --</option>
+                    @foreach (var s in statuses)
+                    {
+                        <option value="@s.Value">@s.Text</option>
+                    }
+                </select>
+                <small id="status-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- ===== PARENT OFFICE ===== -->
+            <div class="col-md-6 mt-3">
+                <label for="PARENT_OFFICE" class="form-label">Parent Office</label>
+                <select id="PARENT_OFFICE" name="PARENT_OFFICE" class="form-control" required>
+                    <option value="">-- Select Parent Office --</option>
+                    @foreach (var po in parentOffices)
+                    {
+                        <option value="@po.Value">@po.Text</option>
+                    }
+                </select>
+                <small id="po-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- ===== Dates ===== -->
+            <div class="col-md-6 mt-3">
+                <label for="JOINING_DATE" class="form-label">Joining Date</label>
+                <input type="date" id="JOINING_DATE" name="JOINING_DATE" class="form-control" />
+                <small id="join-msg" class="text-danger d-block"></small>
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="CONTRACT_EXPIRY_DATE" class="form-label">Contract Expiry Date</label>
+                <input type="date" id="CONTRACT_EXPIRY_DATE" name="CONTRACT_EXPIRY_DATE" class="form-control" />
+                <small id="expiry-msg" class="text-danger d-block"></small>
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="RENEWAL_DATE" class="form-label">Renewal Date</label>
+                <input type="date" id="RENEWAL_DATE" name="RENEWAL_DATE" class="form-control" />
+                <small id="renew-msg" class="text-danger d-block"></small>
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="REPORT_DATE" class="form-label">Report Date</label>
+                <input type="date" id="REPORT_DATE" name="REPORT_DATE" class="form-control" />
+                <small id="report-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- ===== NEW: Extension & Contract Duration ===== -->
+            <div class="col-md-6 mt-3">
+                <label for="EXT_UPTO_DATE" class="form-label">Extension Upto Date</label>
+                <input type="date" id="EXT_UPTO_DATE" name="EXT_UPTO_DATE" class="form-control" />
+                <small id="extupto-msg" class="text-danger d-block"></small>
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="CONTRACT_DURATION" class="form-label">Contract Duration</label>
+                <input type="text" id="CONTRACT_DURATION" name="CONTRACT_DURATION"
+                       class="form-control" maxlength="20"
+                       placeholder="e.g. 12 months / 1 year" />
+                <small class="text-muted d-block">Examples: “12 months”, “1 year”, “18m”, “6 mo”.</small>
+                <small id="cdur-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- ===== NEW: Contact ===== -->
+            <!-- Email -->
+            <div class="col-md-6 mt-3">
+                <label for="EMAIL" class="form-label">Email</label>
+                <input type="email"
+                       id="EMAIL"
+                       name="EMAIL"
+                       class="form-control"
+                       maxlength="254"
+                       autocomplete="off"
+                       placeholder="name@company.com" />
+                <small id="email-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- Payroll ID -->
+            <div class="col-md-6 mt-3">
+                <label for="PAYROLL_ID" class="form-label">Payroll ID</label>
+                <input type="text"
+                       id="PAYROLL_ID"
+                       name="PAYROLL_ID"
+                       class="form-control"
+                       maxlength="100"
+                       autocomplete="off"
+                       placeholder="e.g. EMP-2024-00123" />
+                <small id="payroll-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- Mobile -->
+            <div class="col-md-6 mt-3">
+                <label for="MOBILE" class="form-label">Mobile</label>
+                <input type="text" id="MOBILE" name="MOBILE"
+                       class="form-control" inputmode="numeric" maxlength="50"
+                       placeholder="03XXXXXXXXX" />
+                <small id="mobile-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- Landline -->
+            <div class="col-md-6 mt-3">
+                <label for="LANDLINE" class="form-label">Landline</label>
+                <input type="text" id="LANDLINE" name="LANDLINE"
+                       class="form-control" maxlength="20"
+                       placeholder="e.g. 042-1234567" />
+                <small id="landline-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- ===== NEW: Ref File No & Remarks ===== -->
+            <div class="col-md-6 mt-3">
+                <label for="REF_FILE_NO" class="form-label">Ref File No</label>
+                <input type="text" id="REF_FILE_NO" name="REF_FILE_NO" class="form-control"
+                       maxlength="100" placeholder="e.g. HR/2024/123" />
+                <small id="ref-msg" class="text-danger d-block"></small>
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="REMARKS" class="form-label">Remarks</label>
+                <textarea id="REMARKS" name="REMARKS" class="form-control" maxlength="200" rows="2"
+                          placeholder="Optional remarks (max 200 chars)"></textarea>
+                <small id="remarks-msg" class="text-danger d-block"></small>
+            </div>
+
+            <!-- Domicile -->
+            <div class="col-md-6 mt-3">
+                <label for="DOMICILE_PROVINCE" class="form-label">Domicile Province</label>
+                <select id="DOMICILE_PROVINCE" name="DOMICILE_PROVINCE" class="form-control" required>
+                    <option value="">-- Select Province --</option>
+                    @foreach (var p in provinces)
+                    {
+                        <option value="@p.Value">@p.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="DOMICILE_DISTRICT" class="form-label">Domicile District</label>
+                <select id="DOMICILE_DISTRICT" name="DOMICILE_DISTRICT" class="form-control" required>
+                    <option value="">-- Select District --</option>
+                </select>
+            </div>
+
+            <!-- Current Address -->
+            <div class="col-md-4 mt-3">
+                <label for="C_PROVINCE" class="form-label">Current Province</label>
+                <select id="C_PROVINCE" name="C_PROVINCE" class="form-control" required>
+                    <option value="">-- Select Province --</option>
+                    @foreach (var p in provinces)
+                    {
+                        <option value="@p.Value">@p.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4 mt-3">
+                <label for="C_DISTRICT" class="form-label">Current District</label>
+                <select id="C_DISTRICT" name="C_DISTRICT" class="form-control" required>
+                    <option value="">-- Select District --</option>
+                </select>
+            </div>
+            <div class="col-md-4 mt-3">
+                <label for="C_TEHSIL" class="form-label">Current Tehsil</label>
+                <select id="C_TEHSIL" name="C_TEHSIL" class="form-control" required>
+                    <option value="">-- Select Tehsil --</option>
+                </select>
+            </div>
+            <div class="col-md-12 mt-3">
+                <label for="C_ADDRESS" class="form-label">Current Address</label>
+                <input type="text" id="C_ADDRESS" name="C_ADDRESS" class="form-control" placeholder="House #, Street, Town..." />
+            </div>
+
+            <!-- Permanent Address -->
+            <div class="col-md-4 mt-3">
+                <label for="P_PROVINCE" class="form-label">Permanent Province</label>
+                <select id="P_PROVINCE" name="P_PROVINCE" class="form-control" required>
+                    <option value="">-- Select Province --</option>
+                    @foreach (var p in provinces)
+                    {
+                        <option value="@p.Value">@p.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4 mt-3">
+                <label for="P_DISTRICT" class="form-label">Permanent District</label>
+                <select id="P_DISTRICT" name="P_DISTRICT" class="form-control" required>
+                    <option value="">-- Select District --</option>
+                </select>
+            </div>
+            <div class="col-md-4 mt-3">
+                <label for="P_TEHSIL" class="form-label">Permanent Tehsil</label>
+                <select id="P_TEHSIL" name="P_TEHSIL" class="form-control" required>
+                    <option value="">-- Select Tehsil --</option>
+                </select>
+            </div>
+            <div class="col-md-12 mt-3">
+                <label for="P_ADDRESS" class="form-label">Permanent Address</label>
+                <input type="text" id="P_ADDRESS" name="P_ADDRESS" class="form-control" placeholder="House #, Street, Town..." />
+            </div>
+        </div>
+
+        <button id="submitBtn" type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // CNIC (NOT NULL)
+          document.getElementById('CNIC').addEventListener('input', async function () {
+          const msg = document.getElementById('cnic-msg');
+          this.value = this.value.replace(/\D/g, '').slice(0, 13);
+          msg.textContent = '';
+
+          if (this.value.length === 0) {
+            msg.textContent = 'CNIC is required.';
+            return;
+          }
+
+          if (this.value.length !== 13) {
+            msg.textContent = 'CNIC must be exactly 13 digits.';
+            return;
+          }
+
+          if (this.value.charAt(3) !== '0') {
+            msg.textContent = '4th digit must be 0.';
+            return;
+          }
+
+          try {
+            const res = await fetch('@Url.Action("CheckUnique", "Employee_dataEntryForm")?field=CNIC&value=' + this.value);
+            const d = await res.json();
+            if (d.ok && d.exists) msg.textContent = 'This CNIC already exists.';
+          } catch {}
+        });
+
+        // Name + Father Name (required + letters & spaces only (NOT NULL))
+        function onlyLettersAndSpaces(v){ return /^[A-Za-z ]+$/.test(v); }
+
+        function validateName() {
+          const el = document.getElementById('NAME');
+          const msg = document.getElementById('name-msg');
+          const v = (el.value || '').trim();
+          if (!v) { msg.textContent = 'Name is required.'; return false; }
+          if (!onlyLettersAndSpaces(v)) { msg.textContent = 'Only letters and spaces are allowed.'; return false; }
+          msg.textContent = ''; return true;
+        }
+
+        function validateFatherName() {
+          const el = document.getElementById('FATHER_NAME');
+          const msg = document.getElementById('father-msg');
+          const v = (el.value || '').trim();
+          if (!v) { msg.textContent = 'Father Name is required.'; return false; }
+          if (!onlyLettersAndSpaces(v)) { msg.textContent = 'Only letters and spaces are allowed.'; return false; }
+          msg.textContent = ''; return true;
+        }
+
+        document.getElementById('NAME').addEventListener('input', validateName);
+        document.getElementById('FATHER_NAME').addEventListener('input', validateFatherName);
+
+        // Final guard me yeh do checks bhi include hon (agar already list hai to inko add kar do):
+        document.getElementById('empForm').addEventListener('submit', function (e) {
+          const okName  = validateName();
+          const okFName = validateFatherName();
+          // ...tumhara baaqi validation code...
+          if (!okName || !okFName
+              || document.getElementById('name-msg').textContent
+              || document.getElementById('father-msg').textContent) {
+            e.preventDefault();
+          }
+        });
+
+        // GENDER: must select (NOT NULL)
+          document.getElementById('empForm').addEventListener('submit', function (e) {
+          const gender = document.getElementById('GENDER');
+          const genderMsg = document.getElementById('gender-msg');
+
+          // agar select empty hai to error text set karo
+          if (!gender.value) {
+            genderMsg.textContent = 'Please select a Gender.';
+            e.preventDefault(); // form submit rok do
+          } else {
+            genderMsg.textContent = ''; // agar value hai to error clear karo
+          }
+        });
+
+        // DOB validation (NOT NULL + Cannot Be in Future)
+         document.getElementById('DOB').addEventListener('change', function () {
+            const dobMsg = document.getElementById('dob-msg');
+            const dobValue = this.value ? new Date(this.value) : null;
+            const today = new Date();
+
+            if (!dobValue) {
+                dobMsg.textContent = "Please select Date of Birth.";
+            } else if (dobValue >= today) {
+                dobMsg.textContent = "Date of Birth must be a past date.";
+            } else {
+                dobMsg.textContent = "";
+            }
+        });
+
+        // Final submit check me add karo
+        if (document.getElementById('dob-msg').textContent.trim()) {
+            e.preventDefault();
+        }
+
+        // MARITAL STATUS validation (NOT NULL)
+        document.getElementById('MARITAL_STATUS').addEventListener('change', function () {
+            const msg = document.getElementById('status-msg');
+            msg.textContent = this.value ? '' : 'Please select a Marital Status.';
+        });
+
+        // Final submit guard me add karo:
+        if (document.getElementById('status-msg').textContent.trim()) {
+            e.preventDefault();
+        }
+
+        // CHILDREN VALIDATION (0-5 , NOT NULL)
+        document.getElementById('CHILDREN').addEventListener('input', function () {
+            const msg = document.getElementById('children-msg');
+            const value = this.value.trim();
+
+            if (value === '') {
+                msg.textContent = 'Number of children is required.';
+            } else if (isNaN(value) || value < 0 || value > 5) {
+                msg.textContent = 'Children must be between 0 and 5.';
+            } else {
+                msg.textContent = '';
+            }
+        });
+
+        // Final submit guard me add karo:
+        if (document.getElementById('children-msg').textContent.trim()) {
+            e.preventDefault();
+        }
+
+        // RELIGION -> RELIGION_CAST
+        document.getElementById('RELIGION').addEventListener('change', async function () {
+          const rid  = this.value;
+          const cast = document.getElementById('RELIGION_CAST');
+
+          cast.innerHTML = '';
+          cast.appendChild(new Option('-- Select Religion Cast --', ''));
+          if (!rid) return;
+
+          try {
+            const url = '@Url.Action("GetCastsByReligion", "Employee_dataEntryForm")' + '?religionId=' + encodeURIComponent(rid);
+            const res = await fetch(url, { method: 'GET' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const list = await res.json();
+
+            if (!Array.isArray(list) || list.length === 0) {
+              cast.appendChild(new Option('(no casts found)', ''));
+              return;
+            }
+            list.forEach(x => cast.appendChild(new Option(x.name, x.id)));
+          } catch (err) {
+            console.error('Cast load failed:', err);
+            cast.innerHTML = '';
+            cast.appendChild(new Option('-- Select Religion Cast --', ''));
+            cast.appendChild(new Option('(error loading casts)', ''));
+          }
+        });
+
+        // Province/District/Tehsil cascade helpers
+        function loadDistricts(provSelId, distSelId){
+          const prov = document.getElementById(provSelId).value;
+          const dist = document.getElementById(distSelId);
+          dist.innerHTML = '<option value="">-- Select District --</option>';
+          if(!prov) return;
+          fetch('@Url.Action("GetDistrictsByProvinceCode", "Employee_dataEntryForm")?provinceCode=' + encodeURIComponent(prov))
+            .then(r=>r.json()).then(list=>{
+              list.forEach(x=>{
+                const o = document.createElement('option'); o.value = x.code; o.textContent = x.name; dist.appendChild(o);
+              });
+            });
+        }
+        function loadTehsils(distSelId, tehSelId){
+          const distId = document.getElementById(distSelId).value;
+          const teh = document.getElementById(tehSelId);
+          teh.innerHTML = '<option value="">-- Select Tehsil --</option>';
+          if(!distId) return;
+          fetch('@Url.Action("GetTehsilsByDistrictCode", "Employee_dataEntryForm")?districtCode=' + encodeURIComponent(distId))
+            .then(r=>r.json()).then(list=>{
+              list.forEach(x=>{
+                const o = document.createElement('option'); o.value = x.code; o.textContent = x.name; teh.appendChild(o);
+              });
+            });
+        }
+        // Domicile
+        document.getElementById('DOMICILE_PROVINCE').addEventListener('change', function(){ loadDistricts('DOMICILE_PROVINCE','DOMICILE_DISTRICT'); });
+        // Current
+        document.getElementById('C_PROVINCE').addEventListener('change', function(){
+          loadDistricts('C_PROVINCE','C_DISTRICT');
+          document.getElementById('C_TEHSIL').innerHTML = '<option value="">-- Select Tehsil --</option>';
+        });
+        document.getElementById('C_DISTRICT').addEventListener('change', function(){ loadTehsils('C_DISTRICT','C_TEHSIL'); });
+        // Permanent
+        document.getElementById('P_PROVINCE').addEventListener('change', function(){
+          loadDistricts('P_PROVINCE','P_DISTRICT');
+          document.getElementById('P_TEHSIL').innerHTML = '<option value="">-- Select Tehsil --</option>';
+        });
+        document.getElementById('P_DISTRICT').addEventListener('change', function(){ loadTehsils('P_DISTRICT','P_TEHSIL'); });
+
+        // ===== Dates validation =====
+        const joinDt = document.getElementById('JOINING_DATE');
+        const expDt  = document.getElementById('CONTRACT_EXPIRY_DATE');
+        const renDt  = document.getElementById('RENEWAL_DATE');
+        const repDt  = document.getElementById('REPORT_DATE');
+
+        function validateDates() {
+          const jmsg = document.getElementById('join-msg');
+          const emsg = document.getElementById('expiry-msg');
+          const rmsg = document.getElementById('renew-msg');
+          const rpmsg= document.getElementById('report-msg');
+
+          jmsg.textContent = emsg.textContent = rmsg.textContent = rpmsg.textContent = '';
+
+          const j  = joinDt && joinDt.value ? new Date(joinDt.value) : null;
+          const e  = expDt  && expDt.value  ? new Date(expDt.value)  : null;
+          const rn = renDt  && renDt.value  ? new Date(renDt.value)  : null;
+          const rp = repDt  && repDt.value  ? new Date(repDt.value)  : null;
+
+          const today = new Date(); today.setHours(0,0,0,0);
+
+          if (j && j > today) jmsg.textContent = 'Joining date cannot be in the future.';
+          if (j && e  && e  < j) emsg.textContent = 'Expiry date must be on/after joining date.';
+          if (j && rn && rn < j) rmsg.textContent = 'Renewal date should be on/after joining date.';
+          if (j && rp && rp < j) rpmsg.textContent = 'Report date should be on/after joining date.';
+        }
+
+        joinDt?.addEventListener('change', validateDates);
+        expDt?.addEventListener('change', validateDates);
+        renDt?.addEventListener('change', validateDates);
+        repDt?.addEventListener('change', validateDates);
+
+        // ===== Extension & Contract Duration validation =====
+        const extUpto = document.getElementById('EXT_UPTO_DATE');
+        const cdur    = document.getElementById('CONTRACT_DURATION');
+
+        const joinDt2 = document.getElementById('JOINING_DATE');
+        const repDt2  = document.getElementById('REPORT_DATE');
+
+        function validateExtUpto() {
+          const msg = document.getElementById('extupto-msg');
+          msg.textContent = '';
+          if (!extUpto || !extUpto.value) return;
+
+          const ext = new Date(extUpto.value);
+          if (joinDt2 && joinDt2.value) {
+            const join = new Date(joinDt2.value);
+            if (ext < join) {
+              msg.textContent = 'Extension Upto Date should be on/after Joining Date.';
+              return;
+            }
+          }
+          if (repDt2 && repDt2.value) {
+            const rep = new Date(repDt2.value);
+            if (ext < rep) {
+              msg.textContent = 'Extension Upto Date should be on/after Report Date.';
+              return;
+            }
+          }
+        }
+
+        // CONTRACT DURATION validation
+        (function () {
+          const el  = document.getElementById('CONTRACT_DURATION');
+          const msg = document.getElementById('cdur-msg');
+
+          if (!el) return;
+
+          // Letters + digits + space + - / .  (1–20 chars)
+          const re = /^[A-Za-z0-9 .\/-]{1,20}$/;
+
+          el.addEventListener('input', function () {
+            const v = el.value.trim();
+            el.value = v; // normalize spaces at ends
+
+            if (v.length === 0) {        // OPTIONAL field: empty => OK (agar required karna ho to is block me error de do)
+              msg.textContent = '';
+              return;
+            }
+            if (v.length > 20) {
+              msg.textContent = 'Max 20 characters.';
+              return;
+            }
+            if (!re.test(v)) {
+              msg.textContent = 'Only letters, digits, space, "-", "/", "." (max 20).';
+              return;
+            }
+            msg.textContent = '';
+          });
+
+          // final submit guard me add karo:
+          document.getElementById('empForm')?.addEventListener('submit', function (e) {
+            // ensure latest validation run
+            el.dispatchEvent(new Event('input'));
+            if (msg.textContent.trim()) e.preventDefault();
+          });
+        })();
+
+        // Email (optional) – strong checks (escaped @@ for Razor)
+        function isValidEmail(email) {
+          if (!email) return true;
+          const basic = /^[A-Za-z0-9._%+\-]+@@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+          if (!basic.test(email)) return false;
+          if (email.includes('..')) return false;
+          const parts = email.split('@@');
+          if (parts.length !== 2) return false;
+          const [local, domain] = parts;
+          if (local.startsWith('.') || local.endsWith('.') ||
+              local.startsWith('-') || local.endsWith('-')) return false;
+          const labels = domain.split('.');
+          if (labels.some(l => !/^[A-Za-z0-9](?:[A-Za-z0-9\-]*[A-Za-z0-9])?$/.test(l))) return false;
+          return true;
+        }
+        document.getElementById('EMAIL')?.addEventListener('input', function () {
+          const msg = document.getElementById('email-msg');
+          const v = this.value.trim();
+          if (v.length === 0) { msg.textContent = ''; return; }
+          if (v.length > 254) { msg.textContent = 'Email is too long (max 254).'; return; }
+          msg.textContent = isValidEmail(v) ? '' : 'Please enter a valid email address.';
+        });
+
+        // Payroll ID (optional): 3–100, letters/digits - _ / . only, no spaces, no leading/trailing symbol
+        function isValidPayrollId(pid) {
+          if (!pid) return true;
+          if (pid.length < 3 || pid.length > 100) return false;
+          if (!/^[A-Za-z0-9._\/-]+$/.test(pid)) return false;
+          if (/^\W|[\W]$/.test(pid)) return false; // cannot start/end with symbol
+          if (/\s/.test(pid)) return false;        // no spaces
+          return true;
+        }
+        document.getElementById('PAYROLL_ID')?.addEventListener('input', function () {
+          const msg = document.getElementById('payroll-msg');
+          const v = this.value.trim();
+          if (v.length === 0) { msg.textContent = ''; return; }
+          msg.textContent = isValidPayrollId(v) ? '' : 'Payroll ID: 3–100 chars, letters/digits - _ / . only.';
+        });
+
+        // MOBILE (optional): digits only, exactly 11 digits if provided
+        document.getElementById('MOBILE')?.addEventListener('input', function () {
+          // Remove all non-digits
+          this.value = this.value.replace(/\D/g, '');
+
+          // Limit to 11 digits max
+          if (this.value.length > 11) {
+            this.value = this.value.slice(0, 11);
+          }
+
+          const msg = document.getElementById('mobile-msg');
+          if (!this.value) {
+            msg.textContent = 'Please enter Mobile Number.';
+          }
+          else if (!/^03\d{9}$/.test(this.value)) {
+            msg.textContent = 'Mobile must start with 03 and be 11 digits (e.g., 03001234567).';
+          }
+          else {
+            msg.textContent = '';
+          }
+        });
+
+        // LANDLINE (optional): allow digits, +, -, space, ()
+        document.getElementById('LANDLINE')?.addEventListener('input', function(){
+          const msg = document.getElementById('landline-msg');
+          const ok = /^[0-9()+\- ]{0,20}$/.test(this.value);
+          msg.textContent = ok ? '' : 'Only digits, +, -, space and () allowed (max 20).';
+        });
+
+        // EDUCATION – simple client check
+        document.getElementById('EDUCATION')?.addEventListener('change', function () {
+          const msg = document.getElementById('edu-msg');
+          msg.textContent = this.value ? '' : 'Please select Education.';
+        });
+
+        // ===== Ref File No & Remarks validation =====
+        document.getElementById('REF_FILE_NO')?.addEventListener('input', function(){
+          const v = this.value.trim();
+          this.value = v;
+          document.getElementById('ref-msg').textContent = (v.length <= 100) ? '' : 'Max 100 characters.';
+        });
+        document.getElementById('REMARKS')?.addEventListener('input', function(){
+          const v = this.value;
+          document.getElementById('remarks-msg').textContent = (v.length <= 200) ? '' : 'Max 200 characters.';
+        });
+
+        // Final guard – stop submit if any visible error messages exist
+        document.getElementById('empForm').addEventListener('submit', function (e) {
+          validateDates();
+          validateExtUpto();
+          validateContractDuration();
+
+          if (document.getElementById('cnic-msg').textContent ||
+              document.getElementById('name-msg').textContent ||
+              document.getElementById('father-msg').textContent ||
+              document.getElementById('dob-msg').textContent ||
+              document.getElementById('children-msg').textContent ||
+              document.getElementById('edu-msg').textContent ||          // <— NEW
+              document.getElementById('status-msg').textContent ||
+              document.getElementById('po-msg').textContent ||
+              document.getElementById('scale-msg').textContent ||
+              document.getElementById('desig-msg').textContent ||
+              document.getElementById('join-msg').textContent ||
+              document.getElementById('expiry-msg').textContent ||
+              document.getElementById('renew-msg').textContent ||
+              document.getElementById('report-msg').textContent ||
+              document.getElementById('extupto-msg').textContent ||
+              document.getElementById('cdur-msg').textContent ||
+              document.getElementById('email-msg').textContent ||
+              document.getElementById('payroll-msg').textContent ||
+              document.getElementById('mobile-msg').textContent ||
+              document.getElementById('landline-msg').textContent ||
+              document.getElementById('ref-msg').textContent ||
+              document.getElementById('remarks-msg').textContent) {
+              e.preventDefault();
+          }
+        });
+    </script>
+}

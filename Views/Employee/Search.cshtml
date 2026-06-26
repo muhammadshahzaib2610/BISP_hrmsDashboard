@@ -1,0 +1,258 @@
+﻿@model BISP_hrmsDashboard.Models.EmployeeSearchVM
+@{
+    ViewData["Title"] = "Employee Search";
+}
+
+<style>
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .banner-wrap {
+        width: 100%;
+    }
+
+        .banner-wrap img.banner-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+    .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #c5c8cb;
+        box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        margin: 0;
+        padding: 0;
+    }
+
+        .sticky-navbar .navbar-nav {
+            margin: 0 auto;
+            gap: 12px;
+        }
+
+        .sticky-navbar .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: .75rem 1rem;
+        }
+
+            .sticky-navbar .nav-link.active, .sticky-navbar .nav-link:hover {
+                /* text-decoration: underline; */
+                border-bottom: 2px solid #0d6efd;
+                
+            }
+
+    /* .form-hint {
+        font-size: .85rem;
+        color: #6c757d
+    } */
+</style>
+
+
+
+<div class="banner-wrap">
+    <img src="~/images/banner.jpeg" alt="HRMS Banner" class="banner-img" />
+</div>
+
+<nav class="navbar sticky-navbar justify-content-center">
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee_dataEntryForm" asp-action="Employee_DEF">EMPLOYEE DATA FORM</a></li>
+        <li class="nav-item"><a class="nav-link active" asp-controller="Employee" asp-action="Search">EMPLOYEE SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Create">POSITION</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Search">POSITION SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Unassign">POSITION UNASSIGN</a></li>
+        <li><a class="nav-link" asp-controller="Dashboard" asp-action="Index">HRMS Dashboard</a></li>
+    </ul>
+</nav>
+
+<div class="page-container">
+    <h3>Search Employee</h3>
+
+    <form asp-action="Search" asp-controller="Employee" method="post" class="row gy-2 gx-2 align-items-end">
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-3">
+            <label class="form-label">Search by</label>
+            <select asp-for="SearchBy" class="form-select" id="searchBy">
+                <option value="EmpId" selected>Employee ID</option>
+                <option value="Cnic">CNIC</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label" id="qLabel">Employee ID</label>
+            <input asp-for="QueryText" class="form-control" id="qInput" inputmode="numeric" placeholder="Enter Employee ID" />
+        </div>
+
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill">Search</button>
+            <a asp-controller="Employee_dataEntryForm" asp-action="Employee_DEF" class="btn btn-secondary">New</a>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model?.Message))
+    {
+        <div class="alert alert-info mt-3">@Model.Message</div>
+    }
+
+    @if (Model?.Results?.Count > 0)
+    {
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Emp ID</th>
+                        <th>CNIC</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Parent Office</th>
+                        <th>Status</th>
+                        <th style="width:110px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Results)
+                    {
+                        <tr>
+                            <td>@row.EMPLOYEE_ID</td>
+                            <td>@row.CNIC</td>
+                            <td>@row.NAME</td>
+                            <td>@row.DesignationName</td>
+                            <td>@row.ParentOffice</td>
+                            <td>@row.Status</td>
+                            <td>
+                                <!-- IMPORTANT: normal link nahi; JS se load hoga -->
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-primary"
+                                        onclick="loadEditor(@row.EMPLOYEE_ID)">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div id="editorHost"></div>
+
+    <script>
+        function loadEditor(id) {
+            fetch('/Employee/Edit/' + id)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('editorHost').innerHTML = html;
+                });
+        }
+    </script>
+</div>
+
+@section Scripts {
+    <script>
+        // Search bar masking (EmpId/CNIC)
+        (function () {
+          const sel = document.getElementById('searchBy');
+          const input = document.getElementById('qInput');
+          const label = document.getElementById('qLabel');
+          function applyMask() {
+            if (sel.value === 'EmpId') {
+              label.textContent = 'Employee ID';
+              input.placeholder = 'Enter Employee ID';
+              input.maxLength = 10;
+              input.value = input.value.replace(/\D/g, '');
+              input.setAttribute('inputmode', 'numeric');
+            } else {
+              label.textContent = 'CNIC (13 digits)';
+              input.placeholder = 'Enter CNIC (13 digits)';
+              input.maxLength = 13;
+              input.value = input.value.replace(/\D/g, '').slice(0, 13);
+              input.setAttribute('inputmode', 'numeric');
+            }
+          }
+          sel.addEventListener('change', applyMask);
+          input.addEventListener('input', applyMask);
+          applyMask();
+        })();
+
+        // ===== Inline Editor loader (GET /Employee/Edit?id=..) =====
+        async function loadEditor(id){
+            const host = document.getElementById('editorHost');
+            host.innerHTML = "<div class='alert alert-info'>Loading form...</div>";
+            try {
+                const url = '@Url.Action("Edit", "Employee")' + '?id=' + encodeURIComponent(id);
+                const resp = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                const html = await resp.text();
+                host.innerHTML = html;
+                host.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (e) {
+                host.innerHTML = "<div class='alert alert-danger'>Failed to load form.</div>";
+            }
+        }
+
+        // Partial se call hoga to close editor
+        function hideEditor(){ const host=document.getElementById('editorHost'); if(host) host.innerHTML=""; }
+    </script>
+}
+
+<style>
+    .banner-wrap img.banner-img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #c5c8cb;
+        box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    }
+
+        .sticky-navbar .navbar-nav {
+            margin: 0 auto;
+            gap: 12px;
+        }
+
+        .sticky-navbar .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: .75rem 1rem;
+        }
+
+            .sticky-navbar .nav-link.active, .sticky-navbar .nav-link:hover {
+                border-bottom: 2px solid #0d6efd;
+            }
+
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px;
+    }
+</style>

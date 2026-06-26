@@ -1,0 +1,359 @@
+﻿@model BISP_hrmsDashboard.Models.EmployeeEditVM
+
+<div class="card mt-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <strong>Edit Employee (#@Model.EMPLOYEE_ID)</strong>
+        <button type="button" class="btn-close" aria-label="Close" onclick="hideEditor()"></button>
+    </div>
+
+    <div class="card-body">
+        <form method="post" asp-controller="Employee" asp-action="Update" id="editForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="EMPLOYEE_ID" />
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">CNIC</label>
+                    <input asp-for="CNIC" class="form-control" maxlength="13" inputmode="numeric" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Name</label>
+                    <input asp-for="NAME" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Father Name</label>
+                    <input asp-for="FATHER_NAME" class="form-control" />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Gender</label>
+                    <select asp-for="GENDER" asp-items="Model.Genders" class="form-select"></select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">DOB</label>
+                    <input asp-for="DOB" type="date" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Marital Status</label>
+                    <select asp-for="MARITAL_STATUS" asp-items="Model.MaritalStatuses" class="form-select"></select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Children</label>
+                    <input asp-for="CHILDREN" type="number" class="form-control" />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Religion</label>
+                    <select asp-for="RELIGION" asp-items="Model.Religions" class="form-select"></select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Religion Cast</label>
+                    <select asp-for="RELIGION_CAST" asp-items="Model.Casts" class="form-select"></select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Scale</label>
+                    <select asp-for="SCALE" asp-items="Model.Scales" class="form-select"></select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Designation</label>
+                    <select asp-for="DESIGNATION" asp-items="Model.Designations" class="form-select"></select>
+                </div>
+
+                <!-- Education -->
+                <div class="col-md-3">
+                    <label class="form-label">Education</label>
+                    <select asp-for="EDUCATION" asp-items="Model.Education" class="form-select"></select>
+                </div>
+
+                <!-- Status -->
+                <div class="col-md-3">
+                    <label class="form-label">Status</label>
+                    <select asp-for="STATUS" asp-items="Model.Status" class="form-select">
+                        @* <option value="">-- Select Status --</option> *@
+                    </select>
+                    @* <span asp-validation-for="STATUS" class="text-danger"></span>  *@
+                </div>
+
+                <!-- Parent Office -->
+                <div class="col-md-3">
+                    <label class="form-label">Parent Office</label>
+                    <select asp-for="PARENT_OFFICE" asp-items="Model.ParentOffice" class="form-select">
+                        @* <option value="">-- Select Parent Office --</option> *@
+                    </select>
+                    @* <span asp-validation-for="PARENT_OFFICE" class="text-danger"></span> *@
+                </div>
+
+                <!-- Joining Date -->
+                <div class="col-md-3">
+                    <label class="form-label">Joining Date</label>
+                    <input asp-for="JOINING_DATE" type="date" class="form-control" />
+                    <span asp-validation-for="JOINING_DATE" class="text-danger"></span>
+                </div>
+
+                <!-- Contract Expiry Date -->
+                <div class="col-md-3">
+                    <label class="form-label">Contract Expiry Date</label>
+                    <input asp-for="CONTRACT_EXPIRY_DATE" type="date" class="form-control" />
+                    <span asp-validation-for="CONTRACT_EXPIRY_DATE" class="text-danger"></span>
+                </div>
+
+                <!-- Renewal Date -->
+                <div class="col-md-3">
+                    <label class="form-label">Renewal Date</label>
+                    <input asp-for="RENEWAL_DATE" type="date" class="form-control" />
+                    <span asp-validation-for="RENEWAL_DATE" class="text-danger"></span>
+                </div>
+
+                <!-- Report Date -->
+                <div class="col-md-3">
+                    <label class="form-label">Report Date</label>
+                    <input asp-for="REPORT_DATE" type="date" class="form-control" />
+                    <span asp-validation-for="REPORT_DATE" class="text-danger"></span>
+                </div>
+
+                <!-- Ext Upto Date -->
+                <div class="col-md-3">
+                    <label class="form-label">Ext Upto Date</label>
+                    <input asp-for="EXT_UPTO_DATE" type="date" class="form-control" />
+                    <span asp-validation-for="EXT_UPTO_DATE" class="text-danger"></span>
+                </div>
+
+                <!-- Contract Duration -->
+                <div class="col-md-3">
+                    <label class="form-label">Contract Duration</label>
+                    <input asp-for="CONTRACT_DURATION" class="form-control" />
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="EMAIL" type="email" class="form-control" />
+                </div>
+
+                <!-- Payroll ID -->
+                <div class="col-md-3">
+                    <label class="form-label">Payroll ID</label>
+                    <input asp-for="PAYROLL_ID" class="form-control" />
+                </div>
+
+                <!-- Mobile -->
+                <div class="col-md-3">
+                    <label class="form-label">Mobile</label>
+                    <input asp-for="MOBILE" class="form-control" />
+                </div>
+
+                <!-- Landline -->
+                <div class="col-md-3">
+                    <label class="form-label">Landline</label>
+                    <input asp-for="LANDLINE" class="form-control" />
+                </div>
+
+                <!-- Ref File No -->
+                <div class="col-md-3">
+                    <label class="form-label">Ref File No</label>
+                    <input asp-for="REF_FILE_NO" class="form-control" />
+                </div>
+
+                <!-- Remarks -->
+                <div class="col-md-6">
+                    <label class="form-label">Remarks</label>
+                    <textarea asp-for="REMARKS" class="form-control"></textarea>
+                </div>
+
+                <!-- Domicile Province -->
+                <div class="col-md-3">
+                    <label class="form-label">Domicile Province</label>
+                    <select asp-for="DOMICILE_PROVINCE" asp-items="Model.DomicileProvinces" class="form-select"></select>
+                </div>
+
+                <!-- Domicile District -->
+                <div class="col-md-3">
+                    <label class="form-label">Domicile District</label>
+                    <select asp-for="DOMICILE_DISTRICT" asp-items="Model.DomicileDistricts" class="form-select"></select>
+                </div>
+
+                <!-- Current Province -->
+                <div class="col-md-3">
+                    <label class="form-label">Current Province</label>
+                    <select asp-for="C_PROVINCE" asp-items="Model.CProvinces" class="form-select"></select>
+                </div>
+
+                <!-- Current District -->
+                <div class="col-md-3">
+                    <label class="form-label">Current District</label>
+                    <select asp-for="C_DISTRICT" asp-items="Model.CDistricts" class="form-select"></select>
+                </div>
+
+                <!-- Current Tehsil -->
+                <div class="col-md-3">
+                    <label class="form-label">Current Tehsil</label>
+                    <select asp-for="C_TEHSIL" asp-items="Model.CTehsils" class="form-select"></select>
+                </div>
+
+                <!-- Current Address -->
+                <div class="col-md-6">
+                    <label class="form-label">Current Address</label>
+                    <input asp-for="C_ADDRESS" class="form-control" />
+                </div>
+
+                <!-- Permanent Province -->
+                <div class="col-md-3">
+                    <label class="form-label">Permanent Province</label>
+                    <select asp-for="P_PROVINCE" asp-items="Model.PProvinces" class="form-select"></select>
+                </div>
+
+                <!-- Permanent District -->
+                <div class="col-md-3">
+                    <label class="form-label">Permanent District</label>
+                    <select asp-for="P_DISTRICT" asp-items="Model.PDistricts" class="form-select"></select>
+                </div>
+
+                <!-- Permanent Tehsil -->
+                <div class="col-md-3">
+                    <label class="form-label">Permanent Tehsil</label>
+                    <select asp-for="P_TEHSIL" asp-items="Model.PTehsils" class="form-select"></select>
+                </div>
+
+                <!-- Permanent Address -->
+                <div class="col-md-6">
+                    <label class="form-label">Permanent Address</label>
+                    <input asp-for="P_ADDRESS" class="form-control" />
+                </div>
+            </div>
+
+            <div class="mt-3 d-flex gap-2">
+                <button id="btnSave" type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="hideEditor()">Close</button>
+            </div>
+
+        
+            <div id="updateMsg" class="mt-2"></div>
+        </form>
+        
+    </div>
+</div>
+
+
+
+<script>
+(function () {
+  // --- URLs (server se safe banwaye gaye) ---
+  const URL_DISTRICTS = '@Url.Action("GetDistricts", "Employee")';
+  const URL_TEHSILS   = '@Url.Action("GetTehsils", "Employee")';
+
+  // helper
+  const $ = (id) => document.getElementById(id);
+
+  function clearSelect(sel, placeholder) {
+    sel.innerHTML = '';
+    const op = document.createElement('option');
+    op.value = '';
+    op.textContent = placeholder || '-- Select --';
+    sel.appendChild(op);
+  }
+
+  async function fetchJson(url) {
+    const resp = await fetch(url, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    return await resp.json();
+  }
+
+  async function loadDistricts(provinceCode, districtSel, keepSelectedValue) {
+    clearSelect(districtSel, '-- Select District --');
+    if (!provinceCode) { districtSel.dispatchEvent(new Event('change')); return; }
+
+    const url = ${URL_DISTRICTS}?provinceCode=${encodeURIComponent(provinceCode)};
+    const rows = await fetchJson(url);
+
+    rows.forEach(r => {
+      const op = document.createElement('option');
+      op.value = r.code;             // server returns {code, name}
+      op.textContent = r.name;
+      if (keepSelectedValue != null && +keepSelectedValue === +r.code) op.selected = true;
+      districtSel.appendChild(op);
+    });
+
+    // Tehsil list ko clear/reload trigger
+    districtSel.dispatchEvent(new Event('change'));
+  }
+
+  async function loadTehsils(districtCode, tehsilSel, keepSelectedValue) {
+    clearSelect(tehsilSel, '-- Select Tehsil --');
+    if (!districtCode) return;
+
+    const url = ${URL_TEHSILS}?districtCode=${encodeURIComponent(districtCode)};
+    const rows = await fetchJson(url);
+
+    rows.forEach(r => {
+      const op = document.createElement('option');
+      op.value = r.code;
+      op.textContent = r.name;
+      if (keepSelectedValue != null && +keepSelectedValue === +r.code) op.selected = true;
+      tehsilSel.appendChild(op);
+    });
+  }
+
+  // Wire one set (province -> district -> tehsil)
+  function wire(provId, distId, tehId) {
+    const prov = $(provId);
+    const dist = $(distId);
+    const teh  = tehId ? $(tehId) : null;
+
+    // on province change => load districts
+    prov.addEventListener('change', () => {
+      if (teh) clearSelect(teh, '-- Select Tehsil --');
+      loadDistricts(prov.value, dist, null).catch(console.error);
+    });
+
+    // on district change => load tehsils
+    if (teh) {
+      dist.addEventListener('change', () => {
+        loadTehsils(dist.value, teh, null).catch(console.error);
+      });
+    }
+  }
+
+  // Init for this partial (IDs Razor se asp-for ke mutabiq ban chuke hain)
+  window.initEmployeeEditor = async function initEmployeeEditor() {
+    // Wire events
+    wire('DOMICILE_PROVINCE','DOMICILE_DISTRICT', null);
+    wire('C_PROVINCE','C_DISTRICT','C_TEHSIL');
+    wire('P_PROVINCE','P_DISTRICT','P_TEHSIL');
+
+    // Pre-populate (agar record me values pehle se maujood hain)
+    const domProv = $('DOMICILE_PROVINCE').value;
+    const domDist = $('DOMICILE_DISTRICT').getAttribute('value') || $('DOMICILE_DISTRICT').value;
+
+    const cProv = $('C_PROVINCE').value;
+    const cDist = $('C_DISTRICT').getAttribute('value') || $('C_DISTRICT').value;
+    const cTeh  = $('C_TEHSIL').getAttribute('value') || $('C_TEHSIL').value;
+
+    const pProv = $('P_PROVINCE').value;
+    const pDist = $('P_DISTRICT').getAttribute('value') || $('P_DISTRICT').value;
+    const pTeh  = $('P_TEHSIL').getAttribute('value') || $('P_TEHSIL').value;
+
+    // Domicile lists
+    if (domProv) await loadDistricts(domProv, $('DOMICILE_DISTRICT'), domDist);
+
+    // Current lists
+    if (cProv) {
+      await loadDistricts(cProv, $('C_DISTRICT'), cDist);
+      if (cDist) await loadTehsils(cDist, $('C_TEHSIL'), cTeh);
+    }
+
+    // Permanent lists
+    if (pProv) {
+      await loadDistricts(pProv, $('P_DISTRICT'), pDist);
+      if (pDist) await loadTehsils(pDist, $('P_TEHSIL'), pTeh);
+    }
+  };
+
+  // Run on first load of partial
+  window.initEmployeeEditor();
+})();
+</script>
+
+
+    
+

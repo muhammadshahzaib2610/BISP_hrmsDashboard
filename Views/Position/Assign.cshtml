@@ -1,0 +1,245 @@
+﻿@model BISP_hrmsDashboard.Models.PositionAssignVM
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Assign Position";
+}
+
+<style>
+    .container{max-width:100%!important;padding-left:0!important;padding-right:0!important}
+    html,body{margin:0;padding:0;width:100%;overflow-x:hidden}
+    .banner-wrap{width:100%}
+    .banner-wrap img.banner-img{width:100%;height:220px;object-fit:cover;display:block}
+    .sticky-navbar{position:sticky;top:0;z-index:1000;width:100%;background:#f8f9fa;border-bottom:1px solid #c5c8cb;box-shadow:0 2px 8px rgba(0,0,0,.2);margin:0;padding:0}
+    .sticky-navbar .navbar-nav{margin:0 auto;gap:12px}
+    .sticky-navbar .nav-link{text-transform:uppercase;font-weight:600;padding:.75rem 1rem}
+    .sticky-navbar .nav-link.active,.sticky-navbar .nav-link:hover{border-bottom:2px solid #0d6efd;}
+    .page-container{max-width:1100px;margin:1.25rem auto;padding:0 12px}
+</style>
+
+<!-- Banner -->
+<div class="banner-wrap">
+    <img src="~/images/banner.jpeg" alt="HRMS Banner" class="banner-img" />
+</div>
+
+<!-- Sticky navbar -->
+<nav class="navbar sticky-navbar justify-content-center">
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee_dataEntryForm" asp-action="Employee_DEF">EMPLOYEE DATA FORM</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee" asp-action="Search">EMPLOYEE SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Create">POSITION</a></li>
+        <li class="nav-item"><a class="nav-link active" asp-controller="Position" asp-action="Assign">ASSIGN POSITION</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Search">POSITION SEARCH</a></li>
+    </ul>
+</nav>
+
+<div class="page-container">
+    <h3>Assign Position (Active + Vacant)</h3>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }
+
+    <form asp-action="Assign" asp-controller="Position" method="post" class="row g-3 align-items-end">
+        @Html.AntiForgeryToken()
+
+        <!-- Region -->
+        <div class="col-md-4">
+            <label class="form-label">Region</label>
+            <select id="SelectedRegion" name="SelectedRegion" class="form-select">
+                <option value="">-- All --</option>
+                @foreach (var r in (Model.Regions ?? Enumerable.Empty<SelectListItem>()))
+                {
+                    if (string.Equals(r.Value, Model.SelectedRegion, StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="@r.Value" selected>@r.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@r.Value">@r.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Location (depends on region) -->
+        <div class="col-md-4">
+            <label class="form-label">Location</label>
+            <select id="SelectedLocation" name="SelectedLocation" class="form-select" @(string.IsNullOrWhiteSpace(Model.SelectedRegion) ? "disabled" : "")>
+                <option value="">-- All --</option>
+                @if (!string.IsNullOrWhiteSpace(Model.SelectedRegion))
+                {
+                    foreach (var loc in (Model.Locations ?? Enumerable.Empty<SelectListItem>()))
+                    {
+                        if (string.Equals(loc.Value, Model.SelectedLocation, StringComparison.OrdinalIgnoreCase))
+                        {
+                            <option value="@loc.Value" selected>@loc.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@loc.Value">@loc.Text</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Post Title (independent) -->
+        <div class="col-md-4">
+            <label class="form-label">Post Title</label>
+            <select id="SelectedPostTitle" name="SelectedPostTitle" class="form-select">
+                <option value="">-- All --</option>
+                @foreach (var p in (Model.PostTitles ?? Enumerable.Empty<SelectListItem>()))
+                {
+                    if (string.Equals(p.Value, Model.SelectedPostTitle, StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="@p.Value" selected>@p.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@p.Value">@p.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Employee ID + Name (auto-fill) -->
+        <div class="col-md-3">
+            <label class="form-label">Employee ID</label>
+            <input type="number" id="empId" name="EmployeeId" class="form-control" value="@(Model.EmployeeId?.ToString() ?? "")" placeholder="e.g. 123" />
+        </div>
+        <div class="col-md-5">
+            <label class="form-label">Name</label>
+            <input type="text" id="empName" class="form-control" value="@(Model.EmployeeName ?? "")" placeholder="auto-filled" readonly />
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Search Vacant</button>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model?.Message))
+    {
+        <div class="alert alert-info mt-3">@Model.Message</div>
+    }
+
+    @if (Model?.Results?.Count > 0)
+    {
+        <div class="table-responsive mt-2">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Post ID</th>
+                        <th>Post Title</th>
+                        <th>Region</th>
+                        <th>Location</th>
+                        <th>Scale</th>
+                        <th>Status</th>
+                        <th style="width:150px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var row in Model.Results)
+                {
+                    <tr>
+                        <td>@row.POST_ID</td>
+                        <td>@row.POST_TITLE</td>
+                        <td>@row.POST_REGION</td>
+                        <td>@row.LOCATION_DEPARTMENT</td>
+                        <td>@row.POST_SCALE</td>
+                        <td>@row.POST_STATUS</td>
+                        <td>
+                            <form asp-action="AssignToPost" asp-controller="Position" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="postId" value="@row.POST_ID" />
+                                <input type="hidden" id="hiddenEmployeeId-@row.POST_ID" name="employeeId" value="@(Model.EmployeeId?.ToString() ?? "")" />
+                                <input type="hidden" name="selectedRegion" value="@Model.SelectedRegion" />
+                                <input type="hidden" name="selectedLocation" value="@Model.SelectedLocation" />
+                                <input type="hidden" name="selectedPostTitle" value="@Model.SelectedPostTitle" />
+                                <button type="submit" class="btn btn-sm btn-success assignBtn" disabled onclick="this.disabled=true; this.form.submit();">Assign</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts{
+<script>
+(function(){
+  const regionSel = document.getElementById('SelectedRegion');
+  const locSel = document.getElementById('SelectedLocation');
+  const empId = document.getElementById('empId');
+  const empName = document.getElementById('empName');
+
+  // enable/disable Assign buttons based on employee name present
+  function toggleAssignButtons() {
+    const enabled = empName.value.trim().length > 0;
+    document.querySelectorAll('.assignBtn').forEach(btn => btn.disabled = !enabled);
+
+    // Also sync hidden employeeId fields in each row
+    document.querySelectorAll('[id^="hiddenEmployeeId-"]').forEach(h => {
+      h.value = empId.value || '';
+    });
+  }
+
+  async function loadLocations(region){
+    locSel.innerHTML = '<option value="">-- All --</option>';
+    if(!region){
+      locSel.disabled = true;
+      return;
+    }
+    try{
+      const res = await fetch('@Url.Action("GetLocationsByRegion","Position")?region=' + encodeURIComponent(region));
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const list = await res.json();
+      list.forEach(v => {
+        const o = document.createElement('option');
+        o.value = v; o.textContent = v;
+        locSel.appendChild(o);
+      });
+      locSel.disabled = false;
+    }catch(e){
+      console.error(e);
+      locSel.disabled = true;
+    }
+  }
+
+  async function lookupEmployeeName(id){
+    empName.value = '';
+    toggleAssignButtons();
+    const n = (id || '').toString().trim();
+    if(!n) return;
+
+    try{
+      const res = await fetch('@Url.Action("GetEmployeeName","Position")?id=' + encodeURIComponent(n));
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if(data && data.ok){
+        empName.value = data.name || '';
+      }else{
+        empName.value = '';
+      }
+    }catch(e){
+      console.error(e);
+      empName.value = '';
+    }
+    toggleAssignButtons();
+  }
+
+  // Events
+  regionSel?.addEventListener('change', () => loadLocations(regionSel.value));
+  empId?.addEventListener('change', () => lookupEmployeeName(empId.value));
+  empId?.addEventListener('blur',   () => lookupEmployeeName(empId.value));
+  empId?.addEventListener('input',  () => { if(!empId.value) { empName.value=''; toggleAssignButtons(); } });
+
+  // Initial states (after POST-back)
+  if (regionSel && regionSel.value) { locSel.disabled = false; } else { locSel.disabled = true; }
+  toggleAssignButtons();
+})();
+</script>
+}

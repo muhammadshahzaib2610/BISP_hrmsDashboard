@@ -1,0 +1,56 @@
+﻿@model BISP_hrmsDashboard.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    html, body{
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-y: hidden;
+    }
+</style>
+<div class="d-flex align-items-center justify-content-center" style="min-height:100vh;">
+    <div class="border rounded p-4 shadow-sm" style="width:100%;max-width:380px;">
+        <h3 class="text-center mb-4">HRMS Login</h3>
+
+        <form asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="CNIC" class="form-label"></label>
+                <input asp-for="CNIC" class="form-control" placeholder="3520XXXXXXXXX" />
+                <span asp-validation-for="CNIC" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+
+            <!-- show server messages -->
+            <div asp-validation-summary="ModelOnly" class="text-danger text-center mt-3"></div>
+        </form>
+
+        <!-- footer: show both IPs -->
+        <footer class="text-center mt-4 text-muted" style="font-size:14px;">
+            <div>DB IP: @(ViewBag.AllowedIp ?? "-")</div>
+            <div>Your IP: @ViewBag.ClientIp</div>
+        </footer>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // CNIC digits only
+        const cnic = document.getElementById('CNIC');
+        if (cnic) cnic.addEventListener('input', () => {
+            cnic.value = cnic.value.replace(/\D/g, '').slice(0, 13);
+        });
+    </script>
+}

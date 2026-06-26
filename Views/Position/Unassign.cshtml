@@ -1,0 +1,187 @@
+﻿@model BISP_hrmsDashboard.Models.PositionUnassignVM
+@{
+    ViewData["Title"] = "Unassign Post";
+}
+<style>
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px
+    }
+    /* remove side gaps from layout container on this page only */
+    .container {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Banner full-bleed */
+    .banner-wrap {
+        width: 100%;
+    }
+
+        .banner-wrap img.banner-img {
+            width: 100%;
+            height: 220px; /* smaller height */
+            object-fit: cover; /* no stretch, crop nicely */
+            display: block;
+        }
+
+    /* Full-width sticky navbar right under banner */
+    .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #c5c8cb;
+        box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        margin: 0;
+        padding: 0;
+    }
+
+        .sticky-navbar .navbar-nav {
+            margin: 0 auto;
+            gap: 12px;
+        }
+
+        .sticky-navbar .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: .75rem 1rem;
+        }
+
+            .sticky-navbar .nav-link.active,
+            .sticky-navbar .nav-link:hover {
+                /* text-decoration: underline; */
+                border-bottom: 2px solid #0d6efd;
+            }
+
+    /* Content width (can keep centered) */
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px;
+    }
+</style>
+
+<!-- Banner (full width) -->
+<div class="banner-wrap">
+    <img src="~/images/banner.jpeg" alt="HRMS Banner" class="banner-img" />
+</div>
+
+<!-- Sticky navbar (full width, centered items) -->
+<nav class="navbar sticky-navbar justify-content-center">
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+                                                 && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")"
+               asp-controller="Home" asp-action="Index"
+               asp-route-refresh="@DateTime.Now.Ticks">
+                HOME
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Employee_dataEntryForm"
+               asp-action="Employee_DEF">EMPLOYEE DATA FORM</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee" asp-action="Search">EMPLOYEE SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Create">POSITION</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Search">POSITION SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Unassign">POSITION UNASSIGN</a></li>
+        <li><a class="nav-link" asp-controller="Dashboard" asp-action="Index">HRMS Dashboard</a></li>
+    </ul>
+</nav>
+
+
+
+
+<div class="page-container">
+    <h3>Unassign Post</h3>
+
+    <form asp-action="Unassign" asp-controller="Position" method="post" class="row g-3 align-items-end">
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-3">
+            <label class="form-label">Employee ID</label>
+            <input name="EmployeeId" class="form-control" value="@(Model.EmployeeId?.ToString() ?? "")" />
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" value="@(Model.EmployeeName ?? "")" readonly />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Designation</label>
+            <input class="form-control" value="@(Model.Designation ?? "")" readonly />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Status</label>
+            <input class="form-control" value="@(Model.EmpStatusText ?? "")" readonly />
+        </div>
+    </form>
+
+    @if (TempData["msg"] is string tmsg)
+    {
+        <div class="alert alert-info mt-3">@tmsg</div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model?.Message))
+    {
+        <div class="alert alert-secondary mt-3">@Model.Message</div>
+    }
+
+    @if (Model?.Results?.Count > 0)
+    {
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Post ID</th>
+                        <th>Post Title</th>
+                        <th>Region</th>
+                        <th>Location</th>
+                        <th>Scale</th>
+                        <th>Status</th>
+                        <th style="width:180px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Results)
+                    {
+                        <tr>
+                            <td>@row.POST_ID</td>
+                            <td>@row.POST_TITLE</td>
+                            <td>@row.POST_REGION</td>
+                            <td>@row.LOCATION_DEPARTMENT</td>
+                            <td>@row.POST_SCALE</td>
+                            <td>@row.POST_STATUS</td>
+                            <td>
+                                <form asp-action="UnassignPost" asp-controller="Position" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="postId" value="@row.POST_ID" />
+                                    <input type="hidden" name="employeeId" value="@Model.EmployeeId" />
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Unassign this post from the employee?')">
+                                        Unassign
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

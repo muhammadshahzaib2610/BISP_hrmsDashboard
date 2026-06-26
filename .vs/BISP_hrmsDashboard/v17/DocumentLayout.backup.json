@@ -1,0 +1,539 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\employee_dataentryform\\employee_search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\employee_dataentryform\\employee_search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\employeesearchmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\employeesearchmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\controllers\\employee_dataentryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:controllers\\employee_dataentryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\controllers\\positioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:controllers\\positioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\employeeeditvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\employeeeditvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\dashboard\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\dashboard\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\employee\\_employeeeditor.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\employee\\_employeeeditor.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\position\\unassign.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\position\\unassign.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\position\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\position\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\position\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\position\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\position\\assign.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\position\\assign.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\employee\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\employee\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\employee_dataentryform\\employee_def.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\employee_dataentryform\\employee_def.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\dashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\dashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\positionunassignvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\positionunassignvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\positioncreatevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\positioncreatevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\positionsearchvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\positionsearchvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\positionassignvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\positionassignvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\authentication\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\authentication\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|c:\\users\\mshah\\onedrive\\desktop\\bisp_hrmsdashboard\\bisp_hrmsdashboard.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{53551703-82C7-4C68-89BE-33B67416D5FB}|BISP_hrmsDashboard.csproj|solutionrelative:bisp_hrmsdashboard.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-08-10T17:55:05.895Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmployeeController.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\EmployeeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmployeeController.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\EmployeeController.cs",
+              "RelativeToolTip": "Controllers\\EmployeeController.cs",
+              "ViewState": "AgIAAAwBAAAAAAAAAAAgwCEBAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-18T04:22:41.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EmployeeSearchModels.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\EmployeeSearchModels.cs",
+              "RelativeDocumentMoniker": "Models\\EmployeeSearchModels.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\EmployeeSearchModels.cs",
+              "RelativeToolTip": "Models\\EmployeeSearchModels.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAkwAsAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:45:19.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Employee_dataEntryForm.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\Employee_dataEntryForm.cs",
+              "RelativeDocumentMoniker": "Controllers\\Employee_dataEntryForm.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\Employee_dataEntryForm.cs",
+              "RelativeToolTip": "Controllers\\Employee_dataEntryForm.cs",
+              "ViewState": "AgIAAG8CAAAAAAAAAADwv5kCAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T05:26:30.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Employee_Search.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee_dataEntryForm\\Employee_Search.cshtml",
+              "RelativeDocumentMoniker": "Views\\Employee_dataEntryForm\\Employee_Search.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee_dataEntryForm\\Employee_Search.cshtml",
+              "RelativeToolTip": "Views\\Employee_dataEntryForm\\Employee_Search.cshtml",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAFUAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-18T03:58:23.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PositionController.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\PositionController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PositionController.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\PositionController.cs",
+              "RelativeToolTip": "Controllers\\PositionController.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAYwIMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T03:08:57.105Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EmployeeEditVM.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\EmployeeEditVM.cs",
+              "RelativeDocumentMoniker": "Models\\EmployeeEditVM.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\EmployeeEditVM.cs",
+              "RelativeToolTip": "Models\\EmployeeEditVM.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAywCkAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T06:32:29.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Dashboard\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "Views\\Dashboard\\Dashboard.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Dashboard\\Dashboard.cshtml",
+              "RelativeToolTip": "Views\\Dashboard\\Dashboard.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-27T06:40:16.179Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T06:36:22.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_EmployeeEditor.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee\\_EmployeeEditor.cshtml",
+              "RelativeDocumentMoniker": "Views\\Employee\\_EmployeeEditor.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee\\_EmployeeEditor.cshtml",
+              "RelativeToolTip": "Views\\Employee\\_EmployeeEditor.cshtml",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAuwAcBAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-15T06:33:56.077Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAIwBsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T07:57:28.808Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AuthenticationController.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\AuthenticationController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthenticationController.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Controllers\\AuthenticationController.cs",
+              "RelativeToolTip": "Controllers\\AuthenticationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T05:22:41.64Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Unassign.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Unassign.cshtml",
+              "RelativeDocumentMoniker": "Views\\Position\\Unassign.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Unassign.cshtml",
+              "RelativeToolTip": "Views\\Position\\Unassign.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-26T03:57:33.006Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Search.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Search.cshtml",
+              "RelativeDocumentMoniker": "Views\\Position\\Search.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Search.cshtml",
+              "RelativeToolTip": "Views\\Position\\Search.cshtml",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAA4AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-20T05:28:23.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Position\\Create.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Create.cshtml",
+              "RelativeToolTip": "Views\\Position\\Create.cshtml",
+              "ViewState": "AgIAACgAAAAAAAAAAAAuwDYAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-19T08:05:19.127Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Assign.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Assign.cshtml",
+              "RelativeDocumentMoniker": "Views\\Position\\Assign.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Position\\Assign.cshtml",
+              "RelativeToolTip": "Views\\Position\\Assign.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-20T07:06:32.013Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Search.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee\\Search.cshtml",
+              "RelativeDocumentMoniker": "Views\\Employee\\Search.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee\\Search.cshtml",
+              "RelativeToolTip": "Views\\Employee\\Search.cshtml",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAD0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-15T05:28:18.082Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Employee_DEF.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee_dataEntryForm\\Employee_DEF.cshtml",
+              "RelativeDocumentMoniker": "Views\\Employee_dataEntryForm\\Employee_DEF.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Employee_dataEntryForm\\Employee_DEF.cshtml",
+              "RelativeToolTip": "Views\\Employee_dataEntryForm\\Employee_DEF.cshtml",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-15T06:56:28.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-15T05:06:17.561Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-27T05:36:04.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DashboardVM.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\DashboardVM.cs",
+              "RelativeDocumentMoniker": "Models\\DashboardVM.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\DashboardVM.cs",
+              "RelativeToolTip": "Models\\DashboardVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T05:26:49.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T10:06:27.919Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-26T04:07:41.177Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-26T04:07:38.935Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "PositionUnassignVM.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionUnassignVM.cs",
+              "RelativeDocumentMoniker": "Models\\PositionUnassignVM.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionUnassignVM.cs",
+              "RelativeToolTip": "Models\\PositionUnassignVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-26T03:58:45.663Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "PositionSearchVM.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionSearchVM.cs",
+              "RelativeDocumentMoniker": "Models\\PositionSearchVM.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionSearchVM.cs",
+              "RelativeToolTip": "Models\\PositionSearchVM.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwCkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T05:30:42.631Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "PositionCreateVM.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionCreateVM.cs",
+              "RelativeDocumentMoniker": "Models\\PositionCreateVM.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionCreateVM.cs",
+              "RelativeToolTip": "Models\\PositionCreateVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T03:08:07.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "PositionAssignVM.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionAssignVM.cs",
+              "RelativeDocumentMoniker": "Models\\PositionAssignVM.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\PositionAssignVM.cs",
+              "RelativeToolTip": "Models\\PositionAssignVM.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBIAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:05:49.959Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:45:14.494Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Authentication\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Authentication\\Login.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Authentication\\Login.cshtml",
+              "RelativeToolTip": "Views\\Authentication\\Login.cshtml",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAqwDgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-20T09:56:54.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAB8AAAAAAAAAAADwvycAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-20T03:37:26.225Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "BISP_hrmsDashboard.csproj",
+              "DocumentMoniker": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\BISP_hrmsDashboard.csproj",
+              "RelativeDocumentMoniker": "BISP_hrmsDashboard.csproj",
+              "ToolTip": "C:\\Users\\mshah\\OneDrive\\Desktop\\BISP_hrmsDashboard\\BISP_hrmsDashboard.csproj",
+              "RelativeToolTip": "BISP_hrmsDashboard.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-10T17:49:31.83Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

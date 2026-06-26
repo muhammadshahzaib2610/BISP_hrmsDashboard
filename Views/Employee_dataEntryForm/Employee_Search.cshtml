@@ -1,0 +1,225 @@
+﻿@{
+    ViewData["Title"] = "Employee Search";
+    //ViewBag.HideNav = true;   // same pattern as Employee_DEF
+}
+<style>
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .banner-wrap {
+        width: 100%;
+    }
+
+        .banner-wrap img.banner-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+    .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #c5c8cb;
+        box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        margin: 0;
+        padding: 0;
+    }
+
+        .sticky-navbar .navbar-nav {
+            margin: 0 auto;
+            gap: 12px;
+        }
+
+        .sticky-navbar .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: .75rem 1rem;
+        }
+
+            .sticky-navbar .nav-link.active, .sticky-navbar .nav-link:hover {
+                border-bottom: 2px solid #0d6efd;
+            }
+
+    .form-hint {
+        font-size: .85rem;
+        color: #6c757d
+    }
+</style>
+
+<!-- Banner -->
+<div class="banner-wrap">
+    <img src="~/images/banner.jpeg" alt="HRMS Banner" class="banner-img" />
+</div>
+
+<!-- Sticky navbar -->
+<nav class="navbar sticky-navbar justify-content-center">
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index" asp-route-refresh="@DateTime.Now.Ticks">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee_dataEntryForm" asp-action="Employee_DEF">EMPLOYEE DATA FORM</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Employee" asp-action="Search">EMPLOYEE SEARCH</a></li>
+        <li class="nav-item"><a class="nav-link active" asp-controller="Position" asp-action="Create">POSITION</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Search">POSITION SEARCH</a></li>
+        <li><a class="nav-link" asp-controller="Dashboard" asp-action="Index">HRMS Dashboard</a></li>
+    </ul>
+</nav>
+
+<div class="page-container">
+    <h2 class="mb-3">Employee Search</h2>
+
+    <div class="row g-2 align-items-end">
+        <div class="col-md-7">
+            <label for="q" class="form-label">Search by Employee ID or CNIC</label>
+            <input type="text" id="q" class="form-control"
+                   placeholder="Enter EMPLOYEE ID or 13-digit CNIC" autocomplete="off" />
+            <small class="text-muted">Example: 123  |  3740512345678</small>
+        </div>
+        <div class="col-md-2">
+            <button id="btnSearch" class="btn btn-primary w-100">Search</button>
+        </div>
+        <div class="col-md-2">
+            <button id="btnEdit" class="btn btn-outline-primary w-100">Edit</button>
+        </div>
+        <div class="col-md-12 mt-2">
+            <span id="msg" class="text-info"></span>
+        </div>
+    </div>
+
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped align-middle d-none" id="resultTable">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:120px;">Employee ID</th>
+                    <th style="width:160px;">CNIC</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Parent Office</th>
+                    <th>Status</th>
+                    <th style="width:100px;">Action</th>
+                </tr>
+            </thead>
+            <tbody id="resultBody"></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function(){
+          const q     = document.getElementById('q');
+          const btnS  = document.getElementById('btnSearch');
+          const btnE  = document.getElementById('btnEdit');
+          const msg   = document.getElementById('msg');
+          const tbl   = document.getElementById('resultTable');
+          const tbody = document.getElementById('resultBody');
+
+          function showTable(show){ tbl.classList.toggle('d-none', !show); }
+
+          async function doSearch() {
+            const term = (q.value || '').trim();
+            msg.textContent = ''; showTable(false); tbody.innerHTML = '';
+
+            if (!term) { msg.textContent = 'Please enter an Employee ID or 13-digit CNIC.'; return; }
+
+            const digitsOnly = term.replace(/\D/g,'');
+            const isId   = /^\d+$/.test(term);
+            const isCnic = (term.length === 13 && term === digitsOnly);
+
+            if (!isId && !isCnic) { msg.textContent = 'Enter a valid Employee ID (digits) or CNIC (13 digits).'; return; }
+
+            btnS.disabled = true; msg.textContent = 'Searching...';
+            try {
+              const url = '@Url.Action("SearchEmployees", "Employee_dataEntryForm")' + '?term=' + encodeURIComponent(term);
+              const res = await fetch(url);
+              if (!res.ok) throw new Error('HTTP ' + res.status);
+              const list = await res.json();
+
+              if (!Array.isArray(list) || list.length === 0) { msg.textContent = 'No record found.'; return; }
+
+              tbody.innerHTML = '';
+              list.forEach(r=>{
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                  <td>${r.employeeId}</td>
+                  <td>${r.cnic ?? ''}</td>
+                  <td>${r.name ?? ''}</td>
+                  <td>${r.designation ?? ''}</td>
+                  <td>${r.parentOffice ?? ''}</td>
+                  <td>${r.status ?? ''}</td>
+                  <td>
+                    <a class="btn btn-sm btn-outline-primary"
+                       href="@Url.Action("Employee_DEF", "Employee_dataEntryForm")?employeeId=${'${r.employeeId}'}">
+                      Edit
+                    </a>
+                  </td>`;
+                tbody.appendChild(tr);
+              });
+              
+              showTable(true);
+              msg.textContent = ${list.length} record(s) found.";
+            } catch (e) {
+              console.error(e);
+              msg.textContent = 'Error while searching.';
+            } finally {
+              btnS.disabled = false;
+            }
+          }
+
+          async function goEdit() {
+            const term = (q.value || '').trim();
+            if (!term) { msg.textContent = 'Enter Employee ID or CNIC to edit.'; return; }
+
+            const digitsOnly = term.replace(/\D/g,'');
+            const isId   = /^\d+$/.test(term);
+            const isCnic = (term.length === 13 && term === digitsOnly);
+
+            if (isId && !isCnic) {
+              // direct by ID
+              window.location.href = '@Url.Action("Employee_DEF", "Employee_dataEntryForm")?employeeId=' + encodeURIComponent(term);
+              return;
+            }
+
+            // CNIC -> fetch -> if single match then open
+            try {
+              const url = '@Url.Action("SearchEmployees", "Employee_dataEntryForm")' + '?term=' + encodeURIComponent(term);
+              const res = await fetch(url);
+              if (!res.ok) throw new Error('HTTP ' + res.status);
+              const list = await res.json();
+              if (Array.isArray(list) && list.length === 1) {
+                const id = list[0].employeeId;
+                window.location.href = '@Url.Action("Employee_DEF", "Employee_dataEntryForm")?employeeId=' + encodeURIComponent(id);
+              } else if (!list || list.length === 0) {
+                msg.textContent = 'No record found for this CNIC.';
+              } else {
+                msg.textContent = 'Multiple matches found. Please enter Employee ID to edit.';
+              }
+            } catch {
+              msg.textContent = 'Error while opening edit page.';
+            }
+          }
+
+          btnS.addEventListener('click', function(e){ e.preventDefault(); doSearch(); });
+          btnE.addEventListener('click', function(e){ e.preventDefault(); goEdit(); });
+          q.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); doSearch(); } });
+        })();
+    </script>
+}

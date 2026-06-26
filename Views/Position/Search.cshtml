@@ -1,0 +1,371 @@
+﻿@model BISP_hrmsDashboard.Models.PositionSearchVM
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Position Search";
+}
+
+<style>
+
+    .page-container {
+        max-width: 1100px;
+        margin: 1.25rem auto;
+        padding: 0 12px
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .banner-wrap {
+        width: 100%;
+    }
+
+        .banner-wrap img.banner-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+    .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #c5c8cb;
+        box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        margin: 0;
+        padding: 0;
+    }
+
+        .sticky-navbar .navbar-nav {
+            margin: 0 auto;
+            gap: 12px;
+        }
+
+        .sticky-navbar .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: .75rem 1rem;
+        }
+
+            .sticky-navbar .nav-link.active, .sticky-navbar .nav-link:hover {
+                /* text-decoration: underline; */
+                border-bottom: 2px solid #0d6efd;
+            }
+</style>
+
+<!-- Banner -->
+<div class="banner-wrap">
+    <img src="~/images/banner.jpeg" alt="HRMS Banner" class="banner-img" />
+</div>
+
+
+<nav class="navbar sticky-navbar justify-content-center">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+                                                                        && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")"
+                   asp-controller="Home" asp-action="Index"
+                   asp-route-refresh="@DateTime.Now.Ticks">HOME</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Employee_dataEntryForm" asp-action="Employee_DEF">EMPLOYEE DATA FORM</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Employee" asp-action="Search">EMPLOYEE SEARCH</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Create">POSITION</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Search">POSITION SEARCH</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Position" asp-action="Unassign">POSITION UNASSIGN</a></li>
+            <li><a class="nav-link" asp-controller="Dashboard" asp-action="Index">HRMS Dashboard</a></li>
+        </ul>
+    </nav>
+
+<div class="page-container">
+    <h3>Position Search</h3>
+
+    <form id="filterForm" asp-action="Search" asp-controller="Position" method="post" class="row g-3 align-items-end">
+        @Html.AntiForgeryToken()
+
+        <!-- Region -->
+        <div class="col-md-4">
+            <label class="form-label">Region</label>
+            <select id="regionSel" name="SelectedRegion" class="form-select">
+                <option value="">-- Select --</option>
+                @foreach (var r in (Model.Regions ?? Enumerable.Empty<SelectListItem>()))
+                {
+                    if (string.Equals(r.Value, Model.SelectedRegion, StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="@r.Value" selected="selected">@r.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@r.Value">@r.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Location (by Region) -->
+        <div class="col-md-4">
+            <label class="form-label">Location</label>
+            <select id="locationSel" name="SelectedLocation" class="form-select" @(string.IsNullOrWhiteSpace(Model.SelectedRegion) ? "disabled" : "")>
+                <option value="">-- Select --</option>
+                @if (!string.IsNullOrWhiteSpace(Model.SelectedRegion))
+                {
+                    foreach (var l in (Model.Locations ?? Enumerable.Empty<SelectListItem>()))
+                    {
+                        if (string.Equals(l.Value, Model.SelectedLocation, StringComparison.OrdinalIgnoreCase))
+                        {
+                            <option value="@l.Value" selected="selected">@l.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@l.Value">@l.Text</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Post Title (vacant only) -->
+        <div class="col-md-4">
+            <label class="form-label">Post Title</label>
+            <select id="postSel" name="SelectedPostTitle" class="form-select" @((string.IsNullOrWhiteSpace(Model.SelectedRegion) || string.IsNullOrWhiteSpace(Model.SelectedLocation)) ? "disabled" : "")>
+                <option value="">-- Select --</option>
+                @if (!string.IsNullOrWhiteSpace(Model.SelectedRegion) && !string.IsNullOrWhiteSpace(Model.SelectedLocation))
+                {
+                    foreach (var p in (Model.PostTitles ?? Enumerable.Empty<SelectListItem>()))
+                    {
+                        if (string.Equals(p.Value, Model.SelectedPostTitle, StringComparison.OrdinalIgnoreCase))
+                        {
+                            <option value="@p.Value" selected="selected">@p.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@p.Value">@p.Text</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Employee line -->
+        <div class="col-md-2">
+            <label class="form-label">Employee ID</label>
+            <input id="empId" name="EmployeeId" class="form-control" value="@(Model.EmployeeId?.ToString() ?? "")" />
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="button" id="empSearchBtn" class="btn btn-secondary w-100">Search</button>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Employee Name</label>
+            <input id="empName" class="form-control" value="@(Model.EmployeeName ?? "")" readonly />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Designation</label>
+            <input id="empDesg" class="form-control" value="@(Model.Designation ?? "")" readonly />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Employee Status</label>
+            <input id="empStatus" class="form-control" value="@(Model.EmpStatusText ?? "")" readonly />
+        </div>
+
+        <div id="empAlert" class="alert alert-warning py-1 px-2 mt-2" style="display:none"></div>
+        <div id="empAssigned" class="alert alert-info py-1 px-2 mt-2" style="display:none"></div>
+
+        <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    @if (TempData["msg"] is string tmsg)
+    {
+        <div class="alert alert-info mt-3">@tmsg</div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model?.Message))
+    {
+        <div class="alert alert-info mt-3">@Model.Message</div>
+    }
+
+    @if (Model?.Results?.Count > 0)
+    {
+        <div class="table-responsive mt-2">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Post ID</th>
+                        <th>Post Title</th>
+                        <th>Region</th>
+                        <th>Location</th>
+                        <th>Scale</th>
+                        <th>Status</th>
+                        <th style="width:220px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Results)
+                    {
+                        <tr>
+                            <td>@row.POST_ID</td>
+                            <td>@row.POST_TITLE</td>
+                            <td>@row.POST_REGION</td>
+                            <td>@row.LOCATION_DEPARTMENT</td>
+                            <td>@row.POST_SCALE</td>
+                            <td>@row.POST_STATUS</td>
+                            <td>
+                                <form asp-action="AssignToPost" asp-controller="Position" method="post" class="assign-form d-flex gap-2">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="postId" value="@row.POST_ID" />
+                                    <input type="hidden" name="selectedRegion" value="@Model.SelectedRegion" />
+                                    <input type="hidden" name="selectedLocation" value="@Model.SelectedLocation" />
+                                    <input type="hidden" name="selectedPostTitle" value="@Model.SelectedPostTitle" />
+                                    <input type="hidden" name="searchedEmployeeId" value="@(Model.EmployeeId?.ToString() ?? "")" />
+                                    <input name="employeeId" id="empFor_@row.POST_ID" class="form-control" style="max-width:110px" placeholder="Emp ID" required />
+                                    <button type="submit" class="btn btn-sm btn-primary">Assign</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+          const form     = document.getElementById('filterForm');
+          const region   = document.getElementById('regionSel');
+          const location = document.getElementById('locationSel');
+          const post     = document.getElementById('postSel');
+
+          // ---- Region -> Locations
+          async function loadLocations(reg){
+            location.innerHTML = '<option value="">-- Select --</option>';
+            post.innerHTML     = '<option value="">-- Select --</option>';
+            post.disabled = true;
+
+            if(!reg){ location.disabled = true; return; }
+
+            const res  = await fetch('@Url.Action("GetLocationsByRegion", "Position")?region=' + encodeURIComponent(reg));
+            const list = await res.json();
+            list.forEach(v => {
+              const o = document.createElement('option'); o.value = v; o.textContent = v; location.appendChild(o);
+            });
+            location.disabled = false;
+            form.submit(); // grid refresh
+          }
+
+          // ---- Region+Location -> Vacant Post Titles
+          async function loadVacantTitles(){
+            post.innerHTML = '<option value="">-- Select --</option>';
+            const r = region.value || '';
+            const l = location.value || '';
+            if(!r || !l){ post.disabled = true; form.submit(); return; }
+
+            const url  = '@Url.Action("GetVacantPostTitles", "Position")' + '?region=' + encodeURIComponent(r) + '&location=' + encodeURIComponent(l);
+            const res  = await fetch(url);
+            const list = await res.json();
+            list.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; post.appendChild(o); });
+            post.disabled = false;
+            form.submit(); // grid refresh
+          }
+
+          region?.addEventListener('change', () => loadLocations(region.value));
+          location?.addEventListener('change', loadVacantTitles);
+          post?.addEventListener('change', () => form.submit());
+
+          // ---- Employee brief + validations
+          const empId       = document.getElementById('empId');
+          const empBtn      = document.getElementById('empSearchBtn');
+          const empName     = document.getElementById('empName');
+          const empDesg     = document.getElementById('empDesg');
+          const empStatus   = document.getElementById('empStatus');
+          const empAlert    = document.getElementById('empAlert');
+          const empAssigned = document.getElementById('empAssigned');
+
+          function resetEmpAlerts(){
+            empAlert.style.display = 'none'; empAlert.textContent = '';
+            empAssigned.style.display = 'none'; empAssigned.textContent = '';
+          }
+
+          async function lookupEmp(){
+            const id = (empId?.value || '').trim();
+            [empName, empDesg, empStatus].forEach(i => { if(i) i.value = ''; });
+            resetEmpAlerts();
+            if(!id) return;
+
+            try{
+              const res = await fetch('@Url.Action("GetEmployeeBrief", "Position")?id=' + encodeURIComponent(id));
+              const j   = await res.json();
+
+              if(!j.ok){
+                empAlert.textContent = 'Employee ID not found.';
+                empAlert.style.display = 'block';
+                // also clear hidden searchedEmployeeId so server won’t think it matched
+                document.querySelectorAll('input[name="searchedEmployeeId"]').forEach(x => x.value = '');
+                return;
+              }
+
+              empName.value   = j.name || '';
+              empDesg.value   = j.designation || '';
+              empStatus.value = j.status || '';
+
+              if(j.assigned){
+                empAssigned.textContent = 'Already assigned to: ' + (j.where || 'some post');
+                empAssigned.style.display = 'block';
+              }
+
+              // *** IMPORTANT: set hidden searchedEmployeeId in all row forms
+              document.querySelectorAll('input[name="searchedEmployeeId"]').forEach(x => x.value = id);
+
+            }catch(_){
+              empAlert.textContent = 'Lookup failed. Try again.';
+              empAlert.style.display = 'block';
+              document.querySelectorAll('input[name="searchedEmployeeId"]').forEach(x => x.value = '');
+            }
+          }
+
+          empBtn?.addEventListener('click', (e)=>{ e.preventDefault(); lookupEmp(); });
+          empId?.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); lookupEmp(); } });
+
+          // ---- Row form guard: block submit when searched != typed
+          function attachAssignGuards(){
+            document.querySelectorAll('form.assign-form').forEach(f => {
+              f.addEventListener('submit', (e) => {
+                const searched = (f.querySelector('input[name="searchedEmployeeId"]')?.value || '').trim();
+                const typed    = (f.querySelector('input[name="employeeId"]')?.value || '').trim();
+                if (searched && typed && searched !== typed){
+                  e.preventDefault();
+                  if (empAlert){
+                    empAlert.textContent = '❌ Employee ID does not match Action ID.';
+                    empAlert.style.display = 'block';
+                  } else {
+                    alert('❌ Employee ID does not match Action ID.');
+                  }
+                }
+              });
+            });
+          }
+          attachAssignGuards();
+
+          // If page rendered with an EmployeeId in model, seed the hidden fields
+          (function seedHiddenFromModel(){
+            const initial = (empId?.value || '').trim();
+            if(initial){
+              document.querySelectorAll('input[name="searchedEmployeeId"]').forEach(x => x.value = initial);
+            }
+          })();
+
+        })();
+    </script>
+}
