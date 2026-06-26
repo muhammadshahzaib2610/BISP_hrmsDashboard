@@ -3,11 +3,11 @@ During my internship, I worked on the BISP_hrmsDashboard, a web-based Human Reso
 
 --Responsibilities--
 
-Assisted in developing HRMS dashboard modules.
-Worked with ASP.NET Core MVC and C#.
-Performed SQL Server database operations.
-Managed employee data and records.
-Supported attendance and leave management features.
-Fixed bugs and improved system functionality.
-Tested and maintained application performance.
-Collaborated with team members during development and deployment.
+1. Assisted in developing HRMS dashboard modules.
+2. Worked with ASP.NET Core MVC and C#.
+3. Performed SQL Server database operations.
+4. Managed employee data and records.
+5. Supported attendance and leave management features.
+6. Fixed bugs and improved system functionality.
+7. Tested and maintained application performance.
+8. Collaborated with team members during development and deployment.
