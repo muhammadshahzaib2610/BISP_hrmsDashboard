@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BISP_hrmsDashboard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f32b55225169853c313032d36f889019e9c05dfa")]
 [assembly: System.Reflection.AssemblyProductAttribute("BISP_hrmsDashboard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BISP_hrmsDashboard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
